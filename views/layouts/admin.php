@@ -37,19 +37,10 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
-            ['label' => 'редактирование записей', 'url' => ['/admin']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
+            ['label' => 'Главная', 'url' => ['/admin/default/index']],
+            ['label' => 'Автор', 'url' => ['/admin/author/index']],
+            ['label' => 'Город', 'url' => ['/admin/city/index']],
+            ['label' => 'Отзыв', 'url' => ['/admin/reviews/index']],
         ],
     ]);
     NavBar::end();
@@ -69,6 +60,7 @@ AppAsset::register($this);
 <footer class="footer mt-auto py-3 text-muted">
     <div class="container">
         <p class="float-left">&copy; Отзывы и города <?= date('Y') ?></p>
+        <p class="float-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
 
