@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "reviews".
@@ -54,4 +55,36 @@ class Reviews extends \yii\db\ActiveRecord
             'date_create' => 'Date Create',
         ];
     }
+
+    public function getCity()
+    {
+        return $this->hasOne(City::class, ['id' => 'city_id']);
+    }
+    public function getDate()
+    {
+        return Yii::$app->formatter->asDate($this->date);
+    }
+/*
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+    */
+/*
+    public function isAllowed(): int
+    {
+        return $this->status;
+    }
+
+    public function allow(): bool
+    {
+        $this->status = 1;
+        return $this->save(false);
+    }
+    public function disallow(): bool
+    {
+        $this->status = 0;
+        return $this->save(false);
+    }
+    */
 }

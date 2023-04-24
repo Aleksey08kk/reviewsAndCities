@@ -32,6 +32,7 @@ class Author extends \yii\db\ActiveRecord
         return [
             [['phone'], 'integer'],
             [['date_create'], 'safe'],
+            [['date_create'], 'default', 'value'=> date('Y-m-d')],
             [['fio', 'email', 'password'], 'string', 'max' => 255],
         ];
     }

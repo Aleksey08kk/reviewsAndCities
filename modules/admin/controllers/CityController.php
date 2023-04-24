@@ -4,9 +4,12 @@ namespace app\modules\admin\controllers;
 
 use app\models\city;
 use app\models\citySearch;
+use app\models\ImageUpLoad;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * CityController implements the CRUD actions for city model.
@@ -131,4 +134,20 @@ class CityController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionSetImage(int $id)
+    {
+        $model = new ImageUpLoad;
+
+        if (Yii::$app->request->isPost) {
+            $article = $this->findModel($id);
+            $file = UploadedFile::getInstance($model, 'image');
+
+            if ($article->saveImage($model->uploadFile($file, $article->image))) {
+                return $this->redirect(['view', 'id' => $article->id]);
+            }
+        }
+        return $this->render('image', ['model' => $model]);
+    }
+
 }
