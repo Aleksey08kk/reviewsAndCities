@@ -9,15 +9,8 @@ use yii\helpers\Url;
 $this->title = 'reviews and cities';
 ?>
 
-
-<div class="site-index">
-
-    <div class="jumbotron text-center">
-        <h1 class="display-4">Приветствие!</h1>
-    </div>
-
+<div class="site-index"
     <div class="body-content">
-
 <!-------------------------------------------- ижевск ваш город? -------------------------------------------------->
         <div class="wrap-found-by-ip">
             <p class="your-city">Ваш город</p>
@@ -25,6 +18,10 @@ $this->title = 'reviews and cities';
             <p>? - </p>
             <a class="link" href="<?= Url::toRoute(['site/view', 'id' => $city->id]); ?>"><p class="col">Да</p></a>
         </div>
+
+
+
+
 <!-------------------------------------------- конец ижевск ваш город? -------------------------------------------->
 <!-----------------------------------------------Вывод названий городов----------------------начало----------------------->
         <aside class="widget border pos-padding">
@@ -37,9 +34,11 @@ $this->title = 'reviews and cities';
                 <?php endforeach; ?>
             </ul>
         </aside>
-        <?= $usercity ?>
 
 <!-------------------------------------------------------------Конец--------------------------------------------------->
+        <div class="jumbotron text-center">
+            <h1 class="display-4">ReviewsAndCities</h1>
+        </div>
 
 
     </div>

@@ -1,6 +1,7 @@
 <?php
 
 /** @var yii\web\View $this */
+
 /** @var string $content */
 
 use app\assets\AppAsset;
@@ -26,41 +27,31 @@ AppAsset::register($this);
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
 
-<header>
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
-        'items' => [
-            ['label' => 'редактирование записей', 'url' => ['/admin']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
-    NavBar::end();
-    ?>
+<header class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <nav class="d-flex">
+        <a class="link" href="/">ReviewsAndCities</a>
+        <div class="d-flex headermenu" id="bs-example-navbar-collapse-1">
+            <ul class="headerlist d-flex container px-4">
+                <?php if (Yii::$app->user->isGuest): ?>
+                    <li class="item">
+                        <a class="link" href="<?= Url::toRoute(['auth/login']) ?>">Войти</a>
+                    </li>
+                    <li class="item">
+                        <a class="link" href="<?= Url::toRoute(['auth/signup']) ?>">Регистрация</a>
+                    </li>
+                <?php else: ?>
+                    <li class="item3admins">
+                        <a class="link" href="<?= Url::toRoute(['/admin']) ?>">Редактировать города</a>
+                    </li>
+                    <?= Html::beginForm(['/auth/logout'], 'post') . Html::submitButton('Logout (' . Yii::$app->user->identity->name . ')', ['class' => 'btnlogout']) . Html::endForm() ?>
+                <?php endif; ?>
+            </ul>
+        </div>
+    </nav>
 </header>
 
 
-
 <?= $content ?>
-
 
 
 <footer class="footer mt-auto py-3 text-muted">
