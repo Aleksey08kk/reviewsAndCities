@@ -23,7 +23,6 @@ class ReviewsForm extends Model
         $reviews->text = $this->reviews;
         $reviews->id_city = $id;
         $reviews->date_create = date('Y-m-d');
-        $reviews->img = $this->img;
         return $reviews->save();
     }
 }

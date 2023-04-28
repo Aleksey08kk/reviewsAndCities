@@ -2,11 +2,14 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\ImageUpLoad;
 use app\models\reviews;
 use app\models\reviewsSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ReviewsController implements the CRUD actions for reviews model.
@@ -131,4 +134,21 @@ class ReviewsController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionSetImage(int $id)
+    {
+        $model = new ImageUpLoad;
+
+        if (Yii::$app->request->isPost) {
+            $city = $this->findModel($id);
+            $file = UploadedFile::getInstance($model, 'image');
+
+            if ($city->saveImage($model->uploadFile($file, $city->image))) {
+                return $this->redirect(['view', 'id' => $city->id]);
+            }
+        }
+        return $this->render('image', ['model' => $model]);
+    }
+
+
 }

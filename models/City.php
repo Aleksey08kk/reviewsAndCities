@@ -51,14 +51,11 @@ class City extends \yii\db\ActiveRecord
     {
         return $this->hasOne(City::class, ['id' => 'city_name']);
     }
-
-
     public function saveImage($filename): bool
     {
         $this->image = $filename;
         return $this->save(false);
     }
-
     public function getImage(): string
     {
         return ($this->image) ? '/uploads/' . $this->image : '/no-image.png';

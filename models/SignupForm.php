@@ -16,7 +16,8 @@ class SignupForm extends Model
             [['name','email','password'], 'required'],
             [['name'], 'string'],
             [['email'], 'email'],
-            [['email'], 'unique', 'targetClass'=>'app\models\User', 'targetAttribute'=>'email']
+            [['email'], 'unique', 'targetClass'=>'app\models\User', 'targetAttribute'=>'email'],
+            ['status', 'default', 'value' => User::STATUS_NOT_ACTIVE, 'on' => 'emailActivation'],
         ];
     }
 

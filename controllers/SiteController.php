@@ -100,20 +100,7 @@ class SiteController extends Controller
         }return $this->redirect(['site/views', 'id' => $id]);
     }
 
-    public function actionSetImage(int $id)
-    {
-        $model = new ImageUpLoad;
 
-        if (Yii::$app->request->isPost) {
-            $city = $this->findModel($id);
-            $file = UploadedFile::getInstance($model, 'image');
-
-            if ($city->saveImage($model->uploadFile($file, $city->image))) {
-                return $this->redirect(['view', 'id' => $city->id]);
-            }
-        }
-        return $this->render('image', ['model' => $model]);
-    }
 
 
 }

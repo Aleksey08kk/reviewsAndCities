@@ -31,11 +31,10 @@ AppAsset::register($this);
     <?php if (!empty($reviews)): ?>
         <?php foreach ($reviews as $review): ?>
             <div style="margin: 50px 0 0 32%;"><!--bottom comment-->
-                <h4>Комментарий</h4>
-
-                <div class="comment-img">
-                    <img style="width: 200px" src="<?= $city->getImage(); ?>" alt="">
+                <div class="text-center">
+                    <img style="width: 200px;" src="<?= $review->getImage(); ?>" alt="">
                 </div>
+                <h4>Комментарий</h4>
 
                 <div class="comment-text">
                     <h5 class="px20">Название отзыва: <?= $review->title; ?></h5>
@@ -70,15 +69,6 @@ AppAsset::register($this);
     <!--end leave comment-->
 
 
-
-    <div class="city-form">
-        <?php $form = ActiveForm::begin(); ?>
-        <?= $form->field($reviewsForm, 'reviews')->fileInput(['maxlength' => true]) ?>
-        <div class="form-group">
-            <?= Html::submitButton('Submit', ['class' => 'btn btn-success']) ?>
-        </div>
-        <?php ActiveForm::end(); ?>
-    </div>
 
 
 
