@@ -2,13 +2,16 @@
 
 namespace app\controllers;
 
+use app\models\ImageUpLoad;
+use app\models\ReviewsForm;
+use app\models\UploadForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
 use app\models\City;
+use yii\web\UploadedFile;
 
 class SiteController extends Controller
 {
@@ -69,8 +72,14 @@ class SiteController extends Controller
     public function actionView($id)
     {
         $city = City::findOne($id);
+        $reviews = $city->reviews;
+        $reviewsForm = new ReviewsForm();
+
+
         return $this->render('selectedСity', [
             'city' => $city,
+            'reviews' => $reviews,
+            'reviewsForm' => $reviewsForm,
         ]);
     }
 
@@ -80,9 +89,31 @@ class SiteController extends Controller
     }
 
 
-    
+    public function actionReviews(int $id): Response
+    {
+        $model = new ReviewsForm();
+        if (Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->post());
+            if ($model->saveReviews($id)) {
+                Yii::$app->getSession()->setFlash('reviews', 'Ваш отзыв добавился!');
+            }
+        }return $this->redirect(['site/views', 'id' => $id]);
+    }
 
-  
+    public function actionSetImage(int $id)
+    {
+        $model = new ImageUpLoad;
+
+        if (Yii::$app->request->isPost) {
+            $city = $this->findModel($id);
+            $file = UploadedFile::getInstance($model, 'image');
+
+            if ($city->saveImage($model->uploadFile($file, $city->image))) {
+                return $this->redirect(['view', 'id' => $city->id]);
+            }
+        }
+        return $this->render('image', ['model' => $model]);
+    }
 
 
 }

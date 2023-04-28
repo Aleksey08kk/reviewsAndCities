@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\db\ActiveQuery;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "reviews".
@@ -42,7 +43,7 @@ class Reviews extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => 'ID',
@@ -62,29 +63,44 @@ class Reviews extends \yii\db\ActiveRecord
     }
     public function getDate()
     {
-        return Yii::$app->formatter->asDate($this->date);
+        return Yii::$app->formatter->asDate($this->date_create);
     }
-/*
-    public function getUser()
+
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
-    */
-/*
-    public function isAllowed(): int
+
+
+    public function actionSetImg(int $id)
     {
-        return $this->status;
+        $model = new ImageUpLoad;
+
+        if (Yii::$app->request->isPost) {
+            $city = $this->findModel($id);
+            $file = UploadedFile::getInstance($model, 'image');
+
+            if ($city->saveImage($model->uploadFile($file, $city->img))) {
+                return $this->redirect(['view', 'id' => $city->id]);
+            }
+        }
+        return $this->render('img', ['model' => $model]);
     }
 
-    public function allow(): bool
+
+
+
+    public function saveImg($filename): bool
     {
-        $this->status = 1;
+        $this->img = $filename;
         return $this->save(false);
     }
-    public function disallow(): bool
+
+    public function getImg(): string
     {
-        $this->status = 0;
-        return $this->save(false);
+        return ($this->img) ? '/uploads/' . $this->img : '/no-image.png';
     }
-    */
+
+
+
 }

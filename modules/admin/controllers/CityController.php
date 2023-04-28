@@ -140,11 +140,11 @@ class CityController extends Controller
         $model = new ImageUpLoad;
 
         if (Yii::$app->request->isPost) {
-            $article = $this->findModel($id);
+            $city = $this->findModel($id);
             $file = UploadedFile::getInstance($model, 'image');
 
-            if ($article->saveImage($model->uploadFile($file, $article->image))) {
-                return $this->redirect(['view', 'id' => $article->id]);
+            if ($city->saveImage($model->uploadFile($file, $city->image))) {
+                return $this->redirect(['view', 'id' => $city->id]);
             }
         }
         return $this->render('image', ['model' => $model]);

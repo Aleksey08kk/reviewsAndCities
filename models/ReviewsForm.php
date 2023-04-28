@@ -1,13 +1,14 @@
 <?php
 
 namespace app\models;
-use Yii;
+
 use yii\base\Model;
+
 class ReviewsForm extends Model
 {
     public $reviews;
 
-    public function rules()
+    public function rules(): array
     {
         return [
             [['reviews'], 'required'],
@@ -15,14 +16,14 @@ class ReviewsForm extends Model
         ];
     }
 
-    public function saveReviews($city_id)
+    public function saveReviews($id): bool
     {
-        $reviews = new Comment;
-        $reviews->text = $this->comment;
-        $reviews->user_id = Yii::$app->user->id;
-        $reviews->article_id = $article_id;
-        $reviews->status = 0;
-        $reviews->date = date('Y-m-d');
+        $reviews = new Reviews();
+        $reviews->title = $this->reviews;
+        $reviews->text = $this->reviews;
+        $reviews->id_city = $id;
+        $reviews->date_create = date('Y-m-d');
+        $reviews->img = $this->img;
         return $reviews->save();
     }
 }

@@ -1,7 +1,13 @@
 <?php
 
 use app\assets\AppAsset;
-use yii\helpers\Url;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use yii\widgets\DetailView;
+
+/** @var yii\web\View $this */
+/** @var app\models\City $model */
+/** @var yii\widgets\ActiveForm $form */
 
 AppAsset::register($this);
 ?>
@@ -21,27 +27,61 @@ AppAsset::register($this);
             <?= $city->name ?>
         </div>
     </article>
-<!-----------------------------------------коментрарии------------------------------------------------->
-    <?php if (!empty($comments)): ?>
-        <?php foreach ($comments as $comment): ?>
-            <div class="bottom-comment"><!--bottom comment-->
+    <!-----------------------------------------коментрарии------------------------------------------------->
+    <?php if (!empty($reviews)): ?>
+        <?php foreach ($reviews as $review): ?>
+            <div style="margin: 50px 0 0 32%;"><!--bottom comment-->
                 <h4>Комментарий</h4>
 
                 <div class="comment-img">
-                    <img class="img-circle" src="/public/images/comment-img.jpg" alt="">
+                    <img style="width: 200px" src="<?= $city->getImage(); ?>" alt="">
                 </div>
 
                 <div class="comment-text">
-                    <h5><?= $reviews->title; ?></h5>
-                    <p class="comment-date"><?= $reviews->getDate(); ?></p>
-                    <p class="para"><?= $reviews->text; ?></p>
+                    <h5 class="px20">Название отзыва: <?= $review->title; ?></h5>
+                    <p class="para">Текст отзыва: <?= $review->text; ?></p>
+                    <h5>И автора: <?= $review->id_author;?></h5>
+                    <p>Дата создания: <?= $review->getDate();?></p>
                 </div>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
-    <!-- end bottom comment-->
 
 
-<!------------------------------------конец комментарии------------------------------------------------->
+    <!------------------------------------конец комментарии------------------------------------------------->
+    <!--leave comment-->
+    <?php if (!Yii::$app->user->isGuest): ?>
+
+
+        <div class="leave-comment">
+            <?php $form = \yii\widgets\ActiveForm::begin([
+                'action' => ['site/reviews', 'id' => $city->id],
+                'options' => ['class' => 'form-horizontal contact-form', 'role' => "form"]]) ?>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <?= $form->field($reviewsForm, 'reviews')->textarea(['class' => 'form-control', 'placeholder' => 'Напишите комментарий'])->label(false) ?>
+                </div>
+            </div>
+            <button type="submit" class="btn send-btn">Опубликовать комментарий</button>
+            <?php \yii\widgets\ActiveForm::end(); ?>
+        </div>
+
+    <?php endif; ?>
+    <!--end leave comment-->
+
+
+
+    <div class="city-form">
+        <?php $form = ActiveForm::begin(); ?>
+        <?= $form->field($reviewsForm, 'reviews')->fileInput(['maxlength' => true]) ?>
+        <div class="form-group">
+            <?= Html::submitButton('Submit', ['class' => 'btn btn-success']) ?>
+        </div>
+        <?php ActiveForm::end(); ?>
+    </div>
+
+
+
+
 
 </div>
