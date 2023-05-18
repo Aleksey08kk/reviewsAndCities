@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\base\Model;
 
 class SignupForm extends Model
@@ -17,7 +18,6 @@ class SignupForm extends Model
             [['name'], 'string'],
             [['email'], 'email'],
             [['email'], 'unique', 'targetClass'=>'app\models\User', 'targetAttribute'=>'email'],
-            ['status', 'default', 'value' => User::STATUS_NOT_ACTIVE, 'on' => 'emailActivation'],
         ];
     }
 
@@ -28,4 +28,7 @@ class SignupForm extends Model
             return $user->create();
         }
     }
+
+
+
 }

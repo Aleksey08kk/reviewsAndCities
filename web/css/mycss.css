@@ -1,10 +1,100 @@
 .wrap-found-by-ip{
     display: flex;
-    margin: 100px auto 0 auto;
+    margin: 100px 0 0 100px;
 }
 .your-city{
-    margin: 0 8px 0 20px;
+    margin: 0 8px 0 0;
+    color: #1d2124;
 }
 .px20{
     font-size: 20px;
+}
+
+.ul-city-sort-in-modal{
+    list-style-type: none;
+}
+.a-city-sort-in-modal{
+    color: #32383e;
+}
+.button-da{
+    margin: -8px 0 0 0;
+}
+.wrap-create{
+    margin: 0 0 0 100px;
+}
+
+
+
+
+
+
+
+/*-----------------------------------------------------------Выбор города из списка. Модальное окно------------------------------------------------------*/
+
+#zatemnenie {
+    background: rgba(46, 46, 46, 0.63);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 100;
+}
+#okno {
+    width: 700px;
+    height: 400px;
+    text-align: center;
+    padding: 60px;
+    border: 1px solid #505050;
+    border-radius: 5px;
+    color: #000000;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    background: #fff;
+    font-weight: 100;
+    font-size: 20px;
+}
+
+
+#zatemnenie:target {display: block;}
+.close {
+    border-radius: 5px;
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    padding: .5em 2em;
+    transition: 0.2s;
+    background-color: rgb(105, 105, 105);
+    border: 1px solid #353535;
+    font-size: 20px;
+    box-shadow: 0 -3px rgb(87, 87, 87) inset;
+}
+.close:hover {background: rgb(87, 87, 87);}
+
+.closeManager{
+    border-radius: 5px;
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    padding: .5em 2em;
+    outline: none;
+    transition: 0.2s;
+    border: 1px solid #353535;
+    font-size: 20px;
+    background: rgb(64,199,129);
+    box-shadow: 0 -3px rgb(53,167,110) inset;
+    margin: 30px 0;
+}
+.closeManager:hover{
+    background: rgb(53, 167, 110);
+}
+
+
+
+.main-1{
+    margin: 100px auto;
 }

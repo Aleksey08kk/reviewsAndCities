@@ -29,7 +29,7 @@ AppAsset::register($this);
 
 <header class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <nav class="d-flex">
-        <a class="link" href="/">ReviewsAndCities</a>
+        <a class="link-logo" href="/"><p class="link-color">ReviewsAndCities</p></a>
         <div class="d-flex headermenu" id="bs-example-navbar-collapse-1">
             <ul class="headerlist d-flex container px-4">
                 <?php if (Yii::$app->user->isGuest): ?>
@@ -40,7 +40,7 @@ AppAsset::register($this);
                         <a class="link" href="<?= Url::toRoute(['auth/signup']) ?>">Регистрация</a>
                     </li>
                 <?php else: ?>
-                    <li class="item3admins">
+                    <li class="item">
                         <a class="link" href="<?= Url::toRoute(['/admin']) ?>">Редактировать города</a>
                     </li>
                     <?= Html::beginForm(['/auth/logout'], 'post') . Html::submitButton('Logout (' . Yii::$app->user->identity->name . ')', ['class' => 'btnlogout']) . Html::endForm() ?>

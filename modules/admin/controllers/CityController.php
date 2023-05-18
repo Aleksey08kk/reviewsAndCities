@@ -150,4 +150,11 @@ class CityController extends Controller
         return $this->render('image', ['model' => $model]);
     }
 
+
+    public function getImage()
+    {
+        return ($this->image) ? '/uploads/' . $this->image : '/no-image.png';
+    }
+
+
 }

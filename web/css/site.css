@@ -76,7 +76,7 @@ a.desc:after {
 .nav > li > form > button.logout:focus,
 .nav > li > form > button.logout:hover {
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(77, 77, 77, 0.75);
 }
 
 .nav > li > form > button.logout:focus {
@@ -85,3 +85,13 @@ a.desc:after {
 .px20{
     font-size: 20px;
 }
+
+.link-color{
+    color: azure;
+}
+
+
+
+
+
+

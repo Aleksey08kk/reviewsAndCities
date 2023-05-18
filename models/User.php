@@ -15,7 +15,6 @@ use yii\web\IdentityInterface;
  * @property integer $isAdmin
  * @property string $photo
  *
- * @property Comment[] $comments
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -55,13 +54,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getComments(): \yii\db\ActiveQuery
-    {
-        return $this->hasMany(Comment::class(), ['user_id' => 'id']);
-    }
+
 
     public static function findByEmail(String $email)
     {

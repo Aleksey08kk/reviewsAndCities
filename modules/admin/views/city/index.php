@@ -5,7 +5,12 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
-use yii\widgets\ActiveForm;
+use app\assets\AppAsset;
+use yii\widgets\DetailView;
+
+/** @var yii\web\View $this */
+/** @var yii\widgets\ActiveForm $form */
+/** @var app\models\reviews $model */
 
 /** @var yii\web\View $this */
 /** @var app\models\citySearch $searchModel */
@@ -19,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create City', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать город', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -41,6 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
+
+
+
+
 
 
 

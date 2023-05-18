@@ -36,6 +36,30 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= Html::submitButton('Login', ['class' => 'buttonAuthorization', 'name' => 'login-button']) ?>
 
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <?php ActiveForm::end(); ?>
 
 </div>

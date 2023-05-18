@@ -4,10 +4,14 @@ use app\assets\AppAsset;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\DetailView;
+use app\assets\MyAsset;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
-/** @var app\models\City $model */
 /** @var yii\widgets\ActiveForm $form */
+/** @var app\models\reviews $model */
+/** @var yii\web\View $this */
+/** @var string $content */
 
 AppAsset::register($this);
 ?>
@@ -16,8 +20,6 @@ AppAsset::register($this);
 <br>
 
 <div class="">
-
-
     <div class="text-center">
         <img style="width: 500px;" src="<?= $city->getImage(); ?>" alt="">
     </div>
@@ -52,22 +54,21 @@ AppAsset::register($this);
     <?php if (!Yii::$app->user->isGuest): ?>
 
 
-        <div class="leave-comment">
-            <?php $form = \yii\widgets\ActiveForm::begin([
-                'action' => ['site/reviews', 'id' => $city->id],
-                'options' => ['class' => 'form-horizontal contact-form', 'role' => "form"]]) ?>
-            <div class="form-group">
-                <div class="col-md-12">
-                    <?= $form->field($reviewsForm, 'reviews')->textarea(['class' => 'form-control', 'placeholder' => 'Напишите комментарий'])->label(false) ?>
-                </div>
-            </div>
-            <button type="submit" class="btn send-btn">Опубликовать комментарий</button>
-            <?php \yii\widgets\ActiveForm::end(); ?>
+<div class="leave-comment">
+    <?php $form = \yii\widgets\ActiveForm::begin([
+        'action' => ['site/reviews', 'id' => $city->id],
+        'options' => ['class' => 'form-horizontal contact-form', 'role' => "form"]]) ?>
+    <div class="form-group">
+        <div class="col-md-12">
+            <?= $form->field($reviewsForm, 'reviews')->textarea(['class' => 'form-control', 'placeholder' => 'Напишите комментарий'])->label(false) ?>
         </div>
+    </div>
+    <button type="submit" class="btn send-btn">Опубликовать комментарий</button>
+    <?php \yii\widgets\ActiveForm::end(); ?>
+</div>
 
-    <?php endif; ?>
-    <!--end leave comment-->
-
+<?php endif; ?>
+<!--end leave comment-->
 
 
 
