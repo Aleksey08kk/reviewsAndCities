@@ -8,7 +8,7 @@
 
 
             $.ajax({                //запрос в наш сервер в экшен site/our-city
-                url: 'site/our-city',
+                url: 'site/get-city-by-ip',
                 method: 'post',
                 dataType: 'html',
                 data: data,

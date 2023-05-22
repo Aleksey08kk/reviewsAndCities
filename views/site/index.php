@@ -23,7 +23,7 @@ $this->title = 'reviews and cities';
         <p class="your-city">Ваш город</p>
         <div class="your-city" id="user-city"></div>
         <p>? - </p>
-        <p class="button-da"><?= Html::a('Да.', ['site/our-city'], ['class' => 'btn btn-light']) ?></p>
+        <p class="button-da"><?= Html::a('Да.', ['site/my-city'], ['class' => 'btn btn-light']) ?></p>
         <a href="#zatemnenie" class="your-city">Нет. Выбрать мой город</a>
     </div>
 <!------------------------------------------------------------------------------------------------------------------->

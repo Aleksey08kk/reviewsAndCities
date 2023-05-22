@@ -2,6 +2,8 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\City;
+use Yii;
 use yii\web\Controller;
 use app\assets\AppAsset;
 use yii\helpers\Html;
@@ -29,7 +31,7 @@ class DefaultController extends Controller
     {
         return ($this->image) ? '/uploads/' . $this->image : '/no-image.png';
     }
-    
+
 
 
 

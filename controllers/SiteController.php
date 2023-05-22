@@ -109,23 +109,29 @@ class SiteController extends Controller
     }
 
 
-    public function actionOurCity()
+
+    public function actionGetCityByIp(): Response
     {
         $arrayOurCityByIp = (Yii::$app->request->post()); //запрос в наш сервер в экшен site/our-city. ajax запрос из FoundByIp.php
         $cityFromArrayByIp = $arrayOurCityByIp["city"]; //запись города в переменую.
 
         $getIdByName = City::find()->where('name = :name', [':name' => $cityFromArrayByIp])->one(); //поиск имени в базе и вывод его id
 
-        if ($getIdByName) {
-            return $this->redirect(['site/view', 'id' => $getIdByName->id]);  //если в базе есть, передаем id и открываем в selectedCity
-        } else {
+        if (!$getIdByName) {
             $customer = new City();
             $customer->name = $cityFromArrayByIp;
-            $customer->save();                                  //если в базе нет, сохраняем в базу
-                return $this->redirect(['site/view', 'id' => $getIdByName->id]);
+            $customer->save();
+        }else{
+            return $this->redirect(['site/index']);
         }
     }
 
+    public function actionMyCity()
+    {
+
+        //var_dump($test);
+        //return $this->redirect(['site/view', 'id' => $test]);
+    }
 
 
 }
