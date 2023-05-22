@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\ImageUpLoad;
+use app\models\Reviews;
 use app\models\ReviewsForm;
 use app\models\SaveCity;
 use Yii;
@@ -14,7 +15,6 @@ use yii\filters\VerbFilter;
 use app\models\City;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use app\models\AccountActivation;
 
 class SiteController extends Controller
 {
@@ -77,7 +77,6 @@ class SiteController extends Controller
 
     public function actionView($id)
     {
-        $citySortAbc = City::find()->orderby(['name' => SORT_ASC])->all(); //сортировка по алфавиту
         $city = City::findOne($id);
         $reviews = $city->reviews;
         $reviewsForm = new ReviewsForm();
@@ -86,7 +85,6 @@ class SiteController extends Controller
             'city' => $city,
             'reviews' => $reviews,
             'reviewsForm' => $reviewsForm,
-            'citySortAbc' => $citySortAbc,
         ]);
     }
 
@@ -105,7 +103,7 @@ class SiteController extends Controller
                 Yii::$app->getSession()->setFlash('reviews', 'Ваш отзыв добавился!');
             }
         }
-        return $this->redirect(['site/selectedCity', 'id' => $id]);
+        return $this->redirect(['site/view', 'id' => $id]);
     }
 
 

@@ -1,6 +1,8 @@
 <?php
 
 use app\assets\AppAsset;
+use app\models\City;
+use app\models\Reviews;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\DetailView;
@@ -39,10 +41,30 @@ AppAsset::register($this);
                 <h4>Комментарий</h4>
 
                 <div class="comment-text">
-                    <h5 class="px20">Название отзыва: <?= $review->title; ?></h5>
-                    <p class="para">Текст отзыва: <?= $review->text; ?></p>
-                    <h5>И автора: <?= $review->id_author;?></h5>
-                    <p>Дата создания: <?= $review->getDate();?></p>
+                    <p>Автор: <a href="#zatemnenie"><?php
+                            $id = $review->id_author;
+                            $model = \app\models\User::find()->where('id = :id', [':id' => $id])->one();
+                            echo $model->name;
+                            ?></a></p>
+                    <p class="para"><?= $review->text; ?></p>
+                    <p>Дата создания: <?= $review->getDate(); ?></p>
+
+                    <!--модальное окно-->
+                    <div id="zatemnenie">
+                        <div id="okno">
+                            <?php
+                            $id = $review->id_author;
+                            $model = \app\models\User::find()->where('id = :id', [':id' => $id])->one();
+                            echo $model->name . " ";
+                            if (!Yii::$app->user->isGuest):
+                                echo $model->email . " ";
+                                echo $model->date_create;
+                            endif;
+                            ?>
+                            <a href="#" class="close">X</a>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -54,25 +76,21 @@ AppAsset::register($this);
     <?php if (!Yii::$app->user->isGuest): ?>
 
 
-<div class="leave-comment">
-    <?php $form = \yii\widgets\ActiveForm::begin([
-        'action' => ['site/reviews', 'id' => $city->id],
-        'options' => ['class' => 'form-horizontal contact-form', 'role' => "form"]]) ?>
-    <div class="form-group">
-        <div class="col-md-12">
-            <?= $form->field($reviewsForm, 'reviews')->textarea(['class' => 'form-control', 'placeholder' => 'Напишите комментарий'])->label(false) ?>
+        <div class="leave-comment">
+            <?php $form = \yii\widgets\ActiveForm::begin([
+                'action' => ['site/reviews', 'id' => $city->id],
+                'options' => ['class' => 'form-horizontal contact-form', 'role' => "form"]]) ?>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <?= $form->field($reviewsForm, 'reviews')->textarea(['class' => 'form-control', 'placeholder' => 'Напишите комментарий'])->label(false) ?>
+                </div>
+            </div>
+            <button type="submit" class="btn send-btn">Опубликовать комментарий</button>
+            <?php \yii\widgets\ActiveForm::end(); ?>
         </div>
-    </div>
-    <button type="submit" class="btn send-btn">Опубликовать комментарий</button>
-    <?php \yii\widgets\ActiveForm::end(); ?>
-</div>
 
-<?php endif; ?>
-<!--end leave comment-->
-
-
-
-
+    <?php endif; ?>
+    <!--end leave comment-->
 
 
 </div>

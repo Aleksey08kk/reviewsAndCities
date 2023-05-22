@@ -35,7 +35,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             [['isAdmin'], 'integer'],
-            [['name', 'email', 'password', 'photo'], 'string', 'max' => 255],
+            [['name', 'email', 'password', 'photo',], 'string', 'max' => 255],
         ];
     }
 
@@ -53,8 +53,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'photo' => 'Photo',
         ];
     }
-
-
 
     public static function findByEmail(String $email)
     {

@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\base\Model;
 
 class ReviewsForm extends Model
@@ -19,6 +20,9 @@ class ReviewsForm extends Model
     public function saveReviews($id): bool
     {
         $reviews = new Reviews();
+        $reviews->id_author = Yii::$app->user->id;
+        //$reviews = new ImageUpLoad();
+        //$reviews->img = $this->image;
         $reviews->title = $this->reviews;
         $reviews->text = $this->reviews;
         $reviews->id_city = $id;
