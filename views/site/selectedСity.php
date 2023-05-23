@@ -83,6 +83,8 @@ AppAsset::register($this);
             <div class="form-group">
                 <div class="col-md-12">
                     <?= $form->field($reviewsForm, 'reviews')->textarea(['class' => 'form-control', 'placeholder' => 'Напишите комментарий'])->label(false) ?>
+
+                    </div>
                 </div>
             </div>
             <button type="submit" class="btn send-btn">Опубликовать комментарий</button>

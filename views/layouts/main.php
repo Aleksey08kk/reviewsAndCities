@@ -45,6 +45,23 @@ AppAsset::register($this);
                     </li>
                     <?= Html::beginForm(['/auth/logout'], 'post') . Html::submitButton('Logout (' . Yii::$app->user->identity->name . ')', ['class' => 'btnlogout']) . Html::endForm() ?>
                 <?php endif; ?>
+
+
+                <li>
+                    <script src="http://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+                    <script src="https://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+                    <script type="text/javascript">
+                        $(document).ready(function(){
+                            ymaps.ready(function(){
+                                var geolocation = ymaps.geolocation;
+                                $('#tow').html('Ваш город: '+geolocation.city);
+                            });
+                        });
+                    </script>
+                    <div id="tow">Ваш город: ... определяется ...</div>
+                </li>
+
+
             </ul>
         </div>
     </nav>

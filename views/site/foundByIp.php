@@ -1,27 +1,22 @@
-<script src="http://yastatic.net/jquery/2.1.1/jquery.min.js"></script>
-<script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
-<script type="text/javascript">
-    window.onload = function () {
-        $.get("http://ip-api.com/json", function (data) {  //запрос во внешний апи
-            console.log(data);
-            $("#user-city").text(data.city);
+<?php
+
+use app\models\City;
+
+$ch=curl_init();
+curl_setopt($ch,CURLOPT_URL,"http://ip-api.com/json");
+curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+$result=curl_exec($ch);
+$result=json_decode($result);
+
+if($result->status=='success') {
+    echo $result->city;
 
 
-            $.ajax({                //запрос в наш сервер в экшен site/our-city
-                url: 'site/get-city-by-ip',
-                method: 'post',
-                dataType: 'html',
-                data: data,
-                success: function (data) {
-                    $('message').html(data);
-                }
-            });
-        });
+    $getIdByName = City::find()->where('name = :name', [':name' => $result->city])->one();  //поиск имени в базе и вывод его id
+
+    if (!$getIdByName) {                      //сохраняем сразу город если нет в базе
+        $customer = new City();
+        $customer->name = $result->city;
+        $customer->save();
     }
-
-</script>
-
-
-
-
-
+}

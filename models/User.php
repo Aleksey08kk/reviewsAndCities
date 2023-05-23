@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\base\Exception;
 use yii\web\IdentityInterface;
 
 /**
@@ -15,6 +16,7 @@ use yii\web\IdentityInterface;
  * @property integer $isAdmin
  * @property string $photo
  *
+ * @method setPassword($password)
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -59,10 +61,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return User::find()->where(['email'=>$email])->one();
     }
 
-    public function validatePassword(String $password): bool
-    {
-        return $this->password == $password;
-    }
+    public function validatePassword(String $password): bool{return $this->password == $password;}
+
+
 
     public function create(): bool
     {

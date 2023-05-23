@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\base\Exception;
 use yii\base\Model;
 
 /**
@@ -15,6 +16,7 @@ class LoginForm extends Model
 {
     public $email;
     public $password;
+
     public $rememberMe = true;
     private $_user = false;
 
@@ -37,16 +39,18 @@ class LoginForm extends Model
      *
      * @param string $attribute the attribute currently being validated
      * @param array $params the additional name-value pairs given in the rule
+     * @throws Exception
      */
+
     public function validatePassword($attribute, $params)
     {
-        if (!$this->hasErrors()) {
-            $user = $this->getUser();
+            if (!$this->hasErrors()) {
+                $user = $this->getUser();
 
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect email or password.');
+                if (!$user || !$user->validatePassword($this->password)) {
+                    $this->addError($attribute, 'Incorrect email or password.');
+                }
             }
-        }
     }
 
     /**

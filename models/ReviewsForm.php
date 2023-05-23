@@ -8,6 +8,10 @@ use yii\base\Model;
 class ReviewsForm extends Model
 {
     public $reviews;
+    /**
+     * @var mixed
+     */
+
 
     public function rules(): array
     {
@@ -21,8 +25,6 @@ class ReviewsForm extends Model
     {
         $reviews = new Reviews();
         $reviews->id_author = Yii::$app->user->id;
-        //$reviews = new ImageUpLoad();
-        //$reviews->img = $this->image;
         $reviews->title = $this->reviews;
         $reviews->text = $this->reviews;
         $reviews->id_city = $id;

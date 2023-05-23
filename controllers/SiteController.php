@@ -15,6 +15,7 @@ use yii\filters\VerbFilter;
 use app\models\City;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\UploadedFile;
 
 class SiteController extends Controller
 {
@@ -65,7 +66,7 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex(): string
     {
         $citySortAbc = City::find()->orderby(['name' => SORT_ASC])->all(); //сортировка по алфавиту
         $city = City::find()->all();  //выводит все города
@@ -75,7 +76,7 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionView($id)
+    public function actionView($id): string
     {
         $city = City::findOne($id);
         $reviews = $city->reviews;
@@ -88,9 +89,17 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionSelectedCity()
+    public function actionSelectedCity($id): string
     {
-        return $this->render('selectedСity');
+        $city = City::findOne($id);
+        $reviews = $city->reviews;
+        $reviewsForm = new ReviewsForm();
+
+        return $this->render('selectedСity', [
+                'city' => $city,
+                'reviews' => $reviews,
+                'reviewsForm' => $reviewsForm,
+            ]);
     }
 
 
@@ -108,28 +117,22 @@ class SiteController extends Controller
 
 
 
-    public function actionGetCityByIp(): Response
-    {
-        $arrayOurCityByIp = (Yii::$app->request->post()); //запрос в наш сервер в экшен site/our-city. ajax запрос из FoundByIp.php
-        $cityFromArrayByIp = $arrayOurCityByIp["city"]; //запись города в переменую.
-
-        $getIdByName = City::find()->where('name = :name', [':name' => $cityFromArrayByIp])->one(); //поиск имени в базе и вывод его id
-
-        if (!$getIdByName) {
-            $customer = new City();
-            $customer->name = $cityFromArrayByIp;
-            $customer->save();
-        }else{
-            return $this->redirect(['site/index']);
-        }
-    }
-
     public function actionMyCity()
     {
-
-        //var_dump($test);
-        //return $this->redirect(['site/view', 'id' => $test]);
+        $ch=curl_init();
+        curl_setopt($ch,CURLOPT_URL,"http://ip-api.com/json");
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        $result=curl_exec($ch);
+        $result=json_decode($result);
+        if($result->status=='success') {
+            $getIdByName = City::find()->where('name = :name', [':name' => $result->city])->one();  //поиск имени в базе и вывод его id
+        //echo $getIdByName['id'];
+        }
+        return $this->redirect(['site/view', 'id' => $getIdByName['id']]);
     }
+
+
+
 
 
 }

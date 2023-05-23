@@ -21,10 +21,10 @@ $this->title = 'reviews and cities';
     <!-------------------------------------------- ижевск ваш город? -------------------------------------------------->
     <div class="wrap-found-by-ip">
         <p class="your-city">Ваш город</p>
-        <div class="your-city" id="user-city"></div>
+        <?=$result->city?>
         <p>? - </p>
         <p class="button-da"><?= Html::a('Да.', ['site/my-city'], ['class' => 'btn btn-light']) ?></p>
-        <a href="#zatemnenie" class="your-city">Нет. Выбрать мой город</a>
+        <a href="#zatemnenie" class="your-city">Изменить ∨</a>
     </div>
 <!------------------------------------------------------------------------------------------------------------------->
 
@@ -47,9 +47,12 @@ $this->title = 'reviews and cities';
 
 
 
-    <div class="jumbotron text-center main-1">
-        <h1 class="display-4">ReviewsAndCities</h1>
-    </div>
+
+
+
+
+
+
 
 </div>
 </div>
