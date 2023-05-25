@@ -78,15 +78,42 @@ class SiteController extends Controller
 
     public function actionView($id): string
     {
+        $citySortAbc = City::find()->orderby(['name' => SORT_ASC])->all();
         $city = City::findOne($id);
         $reviews = $city->reviews;
         $reviewsForm = new ReviewsForm();
 
-        return $this->render('selectedСity', [
-            'city' => $city,
-            'reviews' => $reviews,
-            'reviewsForm' => $reviewsForm,
-        ]);
+
+
+        if (isset($_SESSION['city_session'])) {
+            return $this->render('selectedСity', [
+                'city' => $city,
+                'reviews' => $reviews,
+                'reviewsForm' => $reviewsForm,
+                'citySortAbc' => $citySortAbc,
+            ]);
+        } else{
+            return $this->render('index', [
+                'city' => $city,
+                'citySortAbc' => $citySortAbc,
+            ]);
+        }
+    }
+
+    public function actionView2($id): string
+    {
+        $citySortAbc = City::find()->orderby(['name' => SORT_ASC])->all();
+        $city = City::findOne($id);
+        $reviews = $city->reviews;
+        $reviewsForm = new ReviewsForm();
+
+
+            return $this->render('selectedСity', [
+                'city' => $city,
+                'reviews' => $reviews,
+                'reviewsForm' => $reviewsForm,
+                'citySortAbc' => $citySortAbc,
+            ]);
     }
 
     public function actionSelectedCity($id): string
@@ -126,7 +153,11 @@ class SiteController extends Controller
         $result=json_decode($result);
         if($result->status=='success') {
             $getIdByName = City::find()->where('name = :name', [':name' => $result->city])->one();  //поиск имени в базе и вывод его id
-        //echo $getIdByName['id'];
+        //var_dump($getIdByName);
+
+        $session = Yii::$app->session;
+        $session->set('city_session', $getIdByName['name']);
+            Yii::$app->session->setTimeout(5); //5 секунд для проверок
         }
         return $this->redirect(['site/view', 'id' => $getIdByName['id']]);
     }

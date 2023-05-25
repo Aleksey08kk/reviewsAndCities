@@ -67,7 +67,6 @@ AppAsset::register($this);
     </nav>
 </header>
 
-
 <?= $content ?>
 
 

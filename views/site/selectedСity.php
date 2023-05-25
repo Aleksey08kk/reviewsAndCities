@@ -15,11 +15,13 @@ use yii\helpers\Url;
 /** @var yii\web\View $this */
 /** @var string $content */
 
-AppAsset::register($this);
+MyAsset::register($this);
 ?>
 <br>
 <br>
 <br>
+
+<p class="button-da"><?= Html::a('На главную', ['site/index'], ['class' => 'btn btn-light']) ?></p>
 
 <div class="">
     <div class="text-center">

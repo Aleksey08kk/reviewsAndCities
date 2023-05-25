@@ -51,7 +51,14 @@ $config = [
             'rules' => [
             ],
         ],
-        
+
+        //установка времени сесии. таймаут
+        'session' => [
+            //'timeout' => 5,
+            'class' => 'yii\web\Session',
+            'cookieParams' => ['lifetime' => 5],   //5 секунд для проверок
+        ],
+
     ],
     'modules' => [
         'admin' => [

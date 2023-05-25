@@ -1,7 +1,7 @@
 <?php
 
 require_once "foundByIp.php";
-
+session_start();
 use app\assets\MyAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -21,10 +21,11 @@ $this->title = 'reviews and cities';
     <!-------------------------------------------- ижевск ваш город? -------------------------------------------------->
     <div class="wrap-found-by-ip">
         <p class="your-city">Ваш город</p>
-        <?=$result->city?>
+        <?= /** @var TYPE_NAME $result */
+        $result->city?>
         <p>? - </p>
         <p class="button-da"><?= Html::a('Да.', ['site/my-city'], ['class' => 'btn btn-light']) ?></p>
-        <a href="#zatemnenie" class="your-city">Изменить ∨</a>
+        <a href="#zatemnenie" class="your-city">Изменить∨</a>
     </div>
 <!------------------------------------------------------------------------------------------------------------------->
 
@@ -33,9 +34,10 @@ $this->title = 'reviews and cities';
         <div id="okno">
             <aside class="widget border pos-padding">
                 <ul class="ul-city-sort-in-modal">
-                    <?php foreach ($citySortAbc as $city): ?>
+                    <?php /** @var TYPE_NAME $citySortAbc */
+                    foreach ($citySortAbc as $city): ?>
                         <li>
-                            <a class="a-city-sort-in-modal" href="<?= Url::toRoute(['site/view', 'id' => $city->id]); ?>"><?=$city->name?></a>
+                            <a class="a-city-sort-in-modal" href="<?= Url::toRoute(['site/view2', 'id' => $city->id]); ?>"><?=$city->name?></a>
                         </li>
                     <?php endforeach; ?>
                 </ul>
@@ -46,7 +48,9 @@ $this->title = 'reviews and cities';
 <!---------------------------------------------------------------------------------------------------------------->
 
 
-
+    <div class="jumbotron text-center main-1">
+        <h1 class="display-4">ReviewsAndCities</h1>
+    </div>
 
 
 
