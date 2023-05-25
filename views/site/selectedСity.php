@@ -78,23 +78,23 @@ MyAsset::register($this);
     <?php if (!Yii::$app->user->isGuest): ?>
 
 
-        <div class="leave-comment">
-            <?php $form = \yii\widgets\ActiveForm::begin([
-                'action' => ['site/reviews', 'id' => $city->id],
-                'options' => ['class' => 'form-horizontal contact-form', 'role' => "form"]]) ?>
-            <div class="form-group">
-                <div class="col-md-12">
-                    <?= $form->field($reviewsForm, 'reviews')->textarea(['class' => 'form-control', 'placeholder' => 'Напишите комментарий'])->label(false) ?>
+    <div class="leave-comment">
+        <?php $form = \yii\widgets\ActiveForm::begin([
+            'action' => ['site/reviews', 'id' => $city->id],
+            'options' => ['class' => 'form-horizontal contact-form', 'role' => "form"]]) ?>
+        <div class="form-group">
+            <div class="col-md-12">
+                <?= $form->field($reviewsForm, 'reviews')->textarea(['class' => 'form-control', 'placeholder' => 'Напишите комментарий'])->label(false) ?>
 
-                    </div>
-                </div>
             </div>
-            <button type="submit" class="btn send-btn">Опубликовать комментарий</button>
-            <?php \yii\widgets\ActiveForm::end(); ?>
         </div>
+    </div>
+    <button type="submit" class="btn send-btn">Опубликовать комментарий</button>
+    <?php \yii\widgets\ActiveForm::end(); ?>
+</div>
 
-    <?php endif; ?>
-    <!--end leave comment-->
+<?php endif; ?>
+<!--end leave comment-->
 
 
 </div>

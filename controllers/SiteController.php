@@ -84,7 +84,6 @@ class SiteController extends Controller
         $reviewsForm = new ReviewsForm();
 
 
-
         if (isset($_SESSION['city_session'])) {
             return $this->render('selectedСity', [
                 'city' => $city,
@@ -92,7 +91,7 @@ class SiteController extends Controller
                 'reviewsForm' => $reviewsForm,
                 'citySortAbc' => $citySortAbc,
             ]);
-        } else{
+        } else {
             return $this->render('index', [
                 'city' => $city,
                 'citySortAbc' => $citySortAbc,
@@ -108,12 +107,12 @@ class SiteController extends Controller
         $reviewsForm = new ReviewsForm();
 
 
-            return $this->render('selectedСity', [
-                'city' => $city,
-                'reviews' => $reviews,
-                'reviewsForm' => $reviewsForm,
-                'citySortAbc' => $citySortAbc,
-            ]);
+        return $this->render('selectedСity', [
+            'city' => $city,
+            'reviews' => $reviews,
+            'reviewsForm' => $reviewsForm,
+            'citySortAbc' => $citySortAbc,
+        ]);
     }
 
     public function actionSelectedCity($id): string
@@ -123,10 +122,10 @@ class SiteController extends Controller
         $reviewsForm = new ReviewsForm();
 
         return $this->render('selectedСity', [
-                'city' => $city,
-                'reviews' => $reviews,
-                'reviewsForm' => $reviewsForm,
-            ]);
+            'city' => $city,
+            'reviews' => $reviews,
+            'reviewsForm' => $reviewsForm,
+        ]);
     }
 
 
@@ -143,27 +142,22 @@ class SiteController extends Controller
     }
 
 
-
-    public function actionMyCity()
+    public function actionMyCity(): Response
     {
-        $ch=curl_init();
-        curl_setopt($ch,CURLOPT_URL,"http://ip-api.com/json");
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-        $result=curl_exec($ch);
-        $result=json_decode($result);
-        if($result->status=='success') {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "http://ip-api.com/json");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $result = curl_exec($ch);
+        $result = json_decode($result);
+        if ($result->status == 'success') {
             $getIdByName = City::find()->where('name = :name', [':name' => $result->city])->one();  //поиск имени в базе и вывод его id
-        //var_dump($getIdByName);
 
-        $session = Yii::$app->session;
-        $session->set('city_session', $getIdByName['name']);
+            $session = Yii::$app->session;
+            $session->set('city_session', $getIdByName['name']);
             Yii::$app->session->setTimeout(5); //5 секунд для проверок
         }
         return $this->redirect(['site/view', 'id' => $getIdByName['id']]);
     }
-
-
-
 
 
 }

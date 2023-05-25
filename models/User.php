@@ -29,7 +29,6 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
 
-
     /**
      * @inheritdoc
      */
@@ -56,14 +55,20 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         ];
     }
 
-    public static function findByEmail(String $email)
+    public static function findByEmail(string $email)
     {
-        return User::find()->where(['email'=>$email])->one();
+        return User::find()->where(['email' => $email])->one();
     }
 
-    public function validatePassword(String $password): bool{return $this->password == $password;}
+    public function validatePassword(string $password): bool
+    {
+        return $this->password == $password;
+    }
 
-
+    public function getDate()
+    {
+        return Yii::$app->formatter->asDate($this->date_create);
+    }
 
     public function create(): bool
     {

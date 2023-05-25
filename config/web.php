@@ -56,7 +56,7 @@ $config = [
         'session' => [
             //'timeout' => 5,
             'class' => 'yii\web\Session',
-            'cookieParams' => ['lifetime' => 5],   //5 секунд для проверок
+            'cookieParams' => ['lifetime' => 7200],   //5 секунд для проверок
         ],
 
     ],
