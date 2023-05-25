@@ -10,6 +10,7 @@ class SignupForm extends Model
     public $name;
     public $email;
     public $password;
+    public $reCaptcha;
 
     public function rules(): array
     {
@@ -18,6 +19,7 @@ class SignupForm extends Model
             [['name'], 'string'],
             [['email'], 'email'],
             [['email'], 'unique', 'targetClass'=>'app\models\User', 'targetAttribute'=>'email'],
+            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className(), 'secret' => '6Lc_ujsmAAAAAMr7yKqt28yVZOnqV40UoxUCItAI', 'uncheckedMessage' => 'Please confirm that you are not a bot.'],
         ];
     }
 

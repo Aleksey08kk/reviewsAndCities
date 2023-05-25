@@ -33,6 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'rememberMe')->checkbox([
             'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
         ]) ?>
+<?= $form->field($model, 'reCaptcha', ['template' => '{input}'])->widget(
+    \himiklab\yii2\recaptcha\ReCaptcha::className()
+    ['widgetOptions'=>['class'=>'pull-right']]
+) ?>
+
     </div>
     <?= Html::submitButton('Войти', ['class' => 'buttonAuthorization', 'name' => 'login-button']) ?>
 

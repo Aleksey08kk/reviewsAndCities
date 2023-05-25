@@ -32,6 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'email')->textInput() ?>
 
         <?= $form->field($model, 'password')->passwordInput() ?>
+
+        <?= $form->field($model, 'reCaptcha')->widget(
+            \himiklab\yii2\recaptcha\ReCaptcha::class,
+            ['siteKey' => '6Lc_ujsmAAAAAOcFP5B8mTY7flAv-qkPiC_1eGsu']
+        ) ?>
+
     </div>
 
     <?= Html::submitButton('Login', ['class' => 'buttonAuthorization', 'name' => 'login-button']) ?>
