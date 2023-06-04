@@ -4,14 +4,17 @@ require_once "foundByIp.php";
 session_start();
 
 use app\assets\MyAsset;
+use app\models\StarRating;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\assets\AppAsset;
+use yii\web\JsExpression;
 
 /** @var yii\web\View $this */
 /** @var string $content */
 
 MyAsset::register($this);
+AppAsset::register($this);
 
 $this->title = 'reviews and cities';
 ?>
@@ -26,11 +29,11 @@ $this->title = 'reviews and cities';
             $result->city ?>
             <p>? - </p>
             <p class="button-da"><?= Html::a('Да.', ['site/my-city'], ['class' => 'btn btn-light']) ?></p>
-            <a href="#zatemnenie" class="your-city">Изменить∨</a>
+            <p class="button-da"><?= Html::a('Изменить∨', ['#zatemnenie'], ['class' => 'btn btn-light']) ?></p>
         </div>
-        <!------------------------------------------------------------------------------------------------------------------->
+ <!------------------------------------------------------------------------------------------------------------------->
 
-        <!-----------------------------------------------Вывод названий городов--------------------------------------------->
+ <!-----------------------------------------------Вывод названий городов--------------------------------------------->
         <div id="zatemnenie">
             <div id="okno">
                 <aside class="widget border pos-padding">
@@ -38,8 +41,11 @@ $this->title = 'reviews and cities';
                         <?php /** @var TYPE_NAME $citySortAbc */
                         foreach ($citySortAbc as $city): ?>
                             <li>
+                                <p class="rating">
                                 <a class="a-city-sort-in-modal"
                                    href="<?= Url::toRoute(['site/view2', 'id' => $city->id]); ?>"><?= $city->name ?></a>
+                                       ★<?=$city->rating ?>
+                                </p>
                             </li>
                         <?php endforeach; ?>
                     </ul>
@@ -53,6 +59,7 @@ $this->title = 'reviews and cities';
         <div class="jumbotron text-center main-1">
             <h1 class="display-4">ReviewsAndCities</h1>
         </div>
+
 
 
     </div>

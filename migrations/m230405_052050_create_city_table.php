@@ -16,6 +16,7 @@ class m230405_052050_create_city_table extends Migration
             'id' => $this->primaryKey(),
             'name'=> $this->string(),
             'date_create'=> $this->date(),
+            //'viewed'=> $this->integer(),
         ]);
     }
 

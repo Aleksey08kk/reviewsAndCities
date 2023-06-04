@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string|null $name
  * @property string|null $date_create
+ * @property int|null $rating
  */
 class City extends \yii\db\ActiveRecord
 {
@@ -88,6 +89,20 @@ class City extends \yii\db\ActiveRecord
     public function getAuthor(): \yii\db\ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'id_author']);
+    }
+
+    public function viewedCounter(): bool
+    {
+        $this->rating += 1;
+        return $this->save(false);
+    }
+
+
+    public function fivePoint($id) //переводим в 5 бальную шкалу
+    {
+        $model = City::find()->where('id = :id', [':id' => $id])->one()->rating;
+        $max = 5 /City::find()->max('rating');
+        return round($max * $model, 1); //округление до 1 знака после запятой
     }
 
 

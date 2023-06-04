@@ -20,7 +20,12 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
       "ext-json": "*",
       "ext-mysqli": "*",
-        "himiklab/yii2-recaptcha-widget": "*"
+        "himiklab/yii2-recaptcha-widget": "*",
+        "kartik-v/yii2-widget-rating": "dev-master",
+        "yiisoft/yii2-bootstrap": "^2.0",
+        "yii2mod/yii2-star-rating": "*"
+"kartik-v/yii2-krajee-base": ">=1.9",
+        "kartik-v/bootstrap-star-rating": "~4.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -61,6 +66,8 @@
                     "yii": "0755"
                 }
             ]
+"branch-alias": {
+            "dev-master": "1.0.x-dev"
         },
         "yii\\composer\\Installer::postInstall": {
             "generateCookieValidationKey": [
@@ -75,3 +82,7 @@
         }
     ]
 }
+    "autoload": {
+        "psr-4": {
+            "kartik\\rating\\": "src"
+        }

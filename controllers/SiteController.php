@@ -69,9 +69,7 @@ class SiteController extends Controller
     public function actionIndex(): string
     {
         $citySortAbc = City::find()->orderby(['name' => SORT_ASC])->all(); //сортировка по алфавиту
-        $city = City::find()->all();  //выводит все города
         return $this->render('index', [
-            'city' => $city,
             'citySortAbc' => $citySortAbc,
         ]);
     }
@@ -82,6 +80,8 @@ class SiteController extends Controller
         $city = City::findOne($id);
         $reviews = $city->reviews;
         $reviewsForm = new ReviewsForm();
+        $city->viewedCounter();
+        $five = $city->fivePoint($id);
 
 
         if (isset($_SESSION['city_session'])) {
@@ -90,6 +90,7 @@ class SiteController extends Controller
                 'reviews' => $reviews,
                 'reviewsForm' => $reviewsForm,
                 'citySortAbc' => $citySortAbc,
+                'five' => $five,
             ]);
         } else {
             return $this->render('index', [
@@ -105,26 +106,31 @@ class SiteController extends Controller
         $city = City::findOne($id);
         $reviews = $city->reviews;
         $reviewsForm = new ReviewsForm();
-
+        $city->viewedCounter();
+        $five = $city->fivePoint($id);
 
         return $this->render('selectedСity', [
             'city' => $city,
             'reviews' => $reviews,
             'reviewsForm' => $reviewsForm,
             'citySortAbc' => $citySortAbc,
+            'five' => $five,
         ]);
     }
 
     public function actionSelectedCity($id): string
     {
+        $citySortAbc = City::find()->orderby(['name' => SORT_ASC])->all();
         $city = City::findOne($id);
         $reviews = $city->reviews;
         $reviewsForm = new ReviewsForm();
+        $city->viewedCounter();
 
         return $this->render('selectedСity', [
             'city' => $city,
             'reviews' => $reviews,
             'reviewsForm' => $reviewsForm,
+            'citySortAbc' => $citySortAbc,
         ]);
     }
 
@@ -160,7 +166,12 @@ class SiteController extends Controller
     }
 
 
+
+
+
+
 }
+
 
 
 

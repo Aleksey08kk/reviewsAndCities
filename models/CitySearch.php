@@ -40,7 +40,7 @@ class citySearch extends city
      */
     public function search($params)
     {
-        $query = city::find();
+        $query = City::find();
 
         // add conditions that should always apply here
 

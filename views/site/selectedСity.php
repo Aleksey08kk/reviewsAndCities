@@ -3,6 +3,8 @@
 use app\assets\AppAsset;
 use app\models\City;
 use app\models\Reviews;
+use app\models\StarRating;
+use app\models\StarRatingAsset;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\DetailView;
@@ -28,11 +30,66 @@ MyAsset::register($this);
         <img style="width: 500px;" src="<?= $city->getImage(); ?>" alt="">
     </div>
 
+
+
+
+
+
     <article class="post">
         <div class="text-center text-uppercase">
             <?= $city->name ?>
+            <p>
+                👁<?=$city->rating ?>
+                ★<?=$five ?>
+            </p>
+
+
+            <!------------------------------------------------------------------------>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+            <div class="rating">
+                <span class="star" data-rating="5"></span>
+                <span class="star" data-rating="4"></span>
+                <span class="star" data-rating="3"></span>
+                <span class="star" data-rating="2"></span>
+                <span class="star" data-rating="1"></span>
+            </div>
+
+            <script>
+                $('.rating .star').on('click', function() {
+                    $(this).closest('.rating').find('.--selected').removeClass('--selected');
+                    $(this).toggleClass('--selected');
+                });
+            </script>
+            <!------------------------------------------------------------------------>
+
+
+            <div class="message">
+                <a class="test" href="#">проверка</a>
+            </div>
+
+            <script>
+                $('.test').click(function (e) {
+                    e.preventDefault();
+                    var _this = this;
+
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: "/site/rating",
+                            success: function (data) {
+                                console.log(data);
+                            }
+                        });
+                });
+            </script>
+
+
+
+
         </div>
     </article>
+
     <!-----------------------------------------коментрарии------------------------------------------------->
     <?php if (!empty($reviews)): ?>
         <?php foreach ($reviews as $review): ?>
@@ -50,6 +107,8 @@ MyAsset::register($this);
                             ?></a></p>
                     <p class="para"><?= $review->text; ?></p>
                     <p>Дата создания: <?= $review->getDate(); ?></p>
+
+
 
                     <!--модальное окно-->
                     <div id="zatemnenie">
@@ -98,3 +157,10 @@ MyAsset::register($this);
 
 
 </div>
+
+
+
+
+
+
+
