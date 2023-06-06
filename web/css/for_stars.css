@@ -1,0 +1,93 @@
+@import url('https://use.fontawesome.com/releases/v5.6.3/css/all.css');
+
+:root {
+    --star-size: 25px;
+}
+
+.rating {
+    display: inline-block;
+    width: calc((var(--star-size) * 5) + 20px);
+    height: var(--star-size);
+    margin-right: 10px;
+    transform: rotate(180deg);
+    font-size: 0;
+}
+
+.rating .star {
+    display: inline-block;
+    float: left;
+    width: var(--star-size);
+    height: var(--star-size);
+    cursor: pointer;
+    font-family: "Font Awesome 5 Free", serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-moothing: antialiased;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    font-weight: 900;
+    transform: rotate(180deg);
+    margin-right: 5px;
+}
+
+.rating .star:last-child {
+    margin-right: 0;
+}
+
+.rating .star::before {
+    content: '\f005';
+    display: block;
+    width: var(--star-size);
+    height: var(--star-size);
+    line-height: var(--star-size);
+    text-align: center;
+    font-size: var(--star-size);
+    font-weight: 400;
+}
+
+.rating .star.--selected,
+.rating .star.--selected ~ .star,
+.rating .star:hover,
+.rating .star:hover ~ .star {
+    font-weight: 900;
+    color: red;
+}
+
+
+.flex{
+    display: flex;
+}
+
+
+.wrap-found-by-ip{
+    display: flex;
+    margin: 50px 0 0 100px;
+}
+.your-city{
+    margin: 0 8px 0 10px;
+    color: #1d2124;
+}
+.px20{
+    font-size: 20px;
+}
+
+.ul-city-sort-in-modal{
+    list-style-type: none;
+}
+.a-city-sort-in-modal{
+    color: #32383e;
+}
+.button-da{
+    margin: -8px 0 0 0;
+}
+.wrap-create{
+    margin: 0 0 0 100px;
+}
+
+.rating{
+    font-size: 15px;
+}
+
+.change-city{
+    margin: 100px auto;
+}

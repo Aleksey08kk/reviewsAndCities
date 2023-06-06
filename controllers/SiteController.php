@@ -165,9 +165,29 @@ class SiteController extends Controller
         return $this->redirect(['site/view', 'id' => $getIdByName['id']]);
     }
 
+    public function actionStars()
+    {
+        $model = Reviews::find()->where(['id' => $_POST['id']])->one(); //находим нужный отзыв/комментарий в базе по id
+        $oldCountClick = $model->countclick; //Берем имеющуюся запись количества кликов
+        $model->countclick = $_POST['coutClick'] + $oldCountClick; //новый клик складываем со имеющейся и сохраняем
+        $model->save();
+        if ($model->save()) {
+
+            $forResult = Reviews::find()->where('id = :id', [':id' => $_POST['id']])->one();
+            $star = $forResult->rating; //имеющаяся оценка из базы
+            $countClickActual = $forResult->countclick; //имеющиеся клики
 
 
+            if (!empty($model)) {
+                $model->rating = ($_POST['stars'] + $star); //оценка из базы + новая. чтоб не делить на 0 делаем else
+                $model->save();
+            } else {
+                $model->rating = ($_POST['stars'] + $star) / $countClickActual; //оценка из базы + новая / количество кликов
+                $model->save();
+            }
 
+        }return true;
+    }
 
 
 }

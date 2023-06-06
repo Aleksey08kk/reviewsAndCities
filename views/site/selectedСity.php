@@ -1,6 +1,7 @@
 <?php
 
 use app\assets\AppAsset;
+use app\assets\ForStarsAsset;
 use app\models\City;
 use app\models\Reviews;
 use app\models\StarRating;
@@ -10,6 +11,9 @@ use yii\widgets\ActiveForm;
 use yii\widgets\DetailView;
 use app\assets\MyAsset;
 use yii\helpers\Url;
+use kartik\base\InputWidget;
+
+//use kartik\widgets\StarRating
 
 /** @var yii\web\View $this */
 /** @var yii\widgets\ActiveForm $form */
@@ -17,6 +21,7 @@ use yii\helpers\Url;
 /** @var yii\web\View $this */
 /** @var string $content */
 
+ForStarsAsset::register($this);
 MyAsset::register($this);
 ?>
 <br>
@@ -31,64 +36,14 @@ MyAsset::register($this);
     </div>
 
 
+    <div class="text-center text-uppercase">
+        <?= $city->name ?>
+        <p>Рэйтинг просмотров:
+            👁<?= $city->rating ?>
+            ★<?= $five ?>
+        </p>
+    </div>
 
-
-
-
-    <article class="post">
-        <div class="text-center text-uppercase">
-            <?= $city->name ?>
-            <p>
-                👁<?=$city->rating ?>
-                ★<?=$five ?>
-            </p>
-
-
-            <!------------------------------------------------------------------------>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-            <div class="rating">
-                <span class="star" data-rating="5"></span>
-                <span class="star" data-rating="4"></span>
-                <span class="star" data-rating="3"></span>
-                <span class="star" data-rating="2"></span>
-                <span class="star" data-rating="1"></span>
-            </div>
-
-            <script>
-                $('.rating .star').on('click', function() {
-                    $(this).closest('.rating').find('.--selected').removeClass('--selected');
-                    $(this).toggleClass('--selected');
-                });
-            </script>
-            <!------------------------------------------------------------------------>
-
-
-            <div class="message">
-                <a class="test" href="#">проверка</a>
-            </div>
-
-            <script>
-                $('.test').click(function (e) {
-                    e.preventDefault();
-                    var _this = this;
-
-                    $.ajax(
-                        {
-                            type: "POST",
-                            url: "/site/rating",
-                            success: function (data) {
-                                console.log(data);
-                            }
-                        });
-                });
-            </script>
-
-
-
-
-        </div>
-    </article>
 
     <!-----------------------------------------коментрарии------------------------------------------------->
     <?php if (!empty($reviews)): ?>
@@ -108,6 +63,81 @@ MyAsset::register($this);
                     <p class="para"><?= $review->text; ?></p>
                     <p>Дата создания: <?= $review->getDate(); ?></p>
 
+                    <!-----------------------------------------звезды------------------------------------------------->
+
+                    <?php
+                    if(is_null($review->countclick)){
+                        $stars = 0;
+                    }else{
+                        $stars = $review->rating / $review->countclick;
+                    }
+                    if ($review->rating > 0) {
+                        echo \kartik\rating\StarRating::widget([
+                            'name' => 'rating_21',
+                            'value' => $stars,
+                            'pluginOptions' => [
+                                'disabled' => (bool)Yii::$app->user->isGuest,//для гостя блокируем кнопки
+                                'showClear' => false,
+                                'showCaption' => false,
+                                'min' => 0,
+                                'max' => 5,
+                                'step' => 1,
+                                'size' => 'md',
+                                'language' => 'ru',
+                            ],
+                            'pluginEvents' => [
+                                'rating:change' => "function(event, value, caption){
+      $.ajax({
+      url: '/site/stars',
+      method: 'post',
+      data:{
+      stars:value,
+      id: '$review->id',
+      coutClick: 1,
+      },
+      dataType:'json',
+      success:function(data){
+      //console.log(data);
+      $('message').html(data);
+      }
+      });
+      }"
+                            ],
+                        ]);
+                    } else {
+                        echo \kartik\rating\StarRating::widget([
+                            'name' => 'rating_21',
+                            'pluginOptions' => [
+                                'disabled' => Yii::$app->user->isGuest ? true : false,//для гостя блокируем кнопки
+                                'showClear' => false,
+                                'showCaption' => false,
+                                'min' => 0,
+                                'max' => 5,
+                                'step' => 1,
+                                'size' => 'md',
+                                'language' => 'ru',
+                            ],
+                            'pluginEvents' => [
+                                'rating:change' => "function(event, value, caption){
+      $.ajax({
+      url: '/site/stars',
+      method: 'post',
+      data:{
+      stars:value,
+      id: '$review->id',
+      coutClick: 1,
+      },
+      dataType:'json',
+      success:function(data){
+      //console.log(data);
+      $('message').html(data);
+      }
+      });
+      }"
+                            ],
+                        ]);
+                    }
+                    ?>
 
 
                     <!--модальное окно-->
@@ -157,6 +187,12 @@ MyAsset::register($this);
 
 
 </div>
+
+
+
+
+
+
 
 
 
